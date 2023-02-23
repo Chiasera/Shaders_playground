@@ -1,0 +1,48 @@
+#pragma kernel InverseFFT
+// Compute Shader for Inverse FFT
+#include "ComplexOperations.hlsl"
+
+// Declare the textures and buffer
+Texture2D<float4> butterflyTexture;
+Texture2D<float2> hkt;
+RWTexture2D<float2> heightField;
+
+// Declare the uniform variables
+uniform int logSize;
+uniform int Size;
+
+[numthreads(8, 8, 1)]
+void InverseFFT(uint3 id : SV_DispatchThreadID)
+{
+    // Declare the local variables
+    uint2 indices;
+    float2 twiddleFactor;
+    float2 hktValue;
+    float2 sum;
+    float2 temp;
+
+    // Initialize the sum to zero
+    sum = float2(0, 0);
+
+    for (int i = 0; i < logSize; i++)
+    {
+        // Get the indices and twiddle factor from the butterfly texture
+        indices = butterflyTexture[uint2(i, id.x)].ba;
+        twiddleFactor = butterflyTexture[uint2(i, id.x)].rg;
+
+        // Get the h(kx, kz, t) value from the time dependent texture
+        hktValue = hkt[uint2(indices.x, id.y)];
+
+        // Perform the complex multiplication
+        temp = ComplexMult(twiddleFactor, hktValue);
+
+        // Add the result to the sum
+        sum += temp;
+    }
+
+    // Scale the result by 1/N
+    sum *= 1.0f / sqrt(Size);
+
+    // Write the result to the heightField texture
+    heightField[id.xy] = sum.x;
+}

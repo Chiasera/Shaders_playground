@@ -1,0 +1,73 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel PhilipsSpectrum
+#include "GaussianNoise.hlsl"
+
+//static const float PI = 3.1415926;
+
+// Create two RenderTextures with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> H0;
+RWTexture2D<float4> WavesData;
+RWTexture2D<float4> NoiseToBake;
+Texture2D<float2> GaussianNoise1;
+Texture2D<float2> GaussianNoise2;
+/*
+    N is defined as the 'grid' size (assuming squared), or in our case the size of our texture    
+    set n = n' - N/2 nd m = m' - N/2
+    For more info, see https://www.researchgate.net/publication/264839743_Simulating_Ocean_Water
+*/
+float N; //By default it's 256
+float NoiseScale;
+float NoiseOutput;
+float L; //Simulation scale
+float A; //Numeric constant
+float2 w; // Wind direction
+float windSpeed;
+float waterDepth; 
+float threshHoldHigh;
+float threshHoldLow;
+
+float Frequency(float k, float g, float depth)
+{
+    return sqrt(g * k * tanh(k * depth));
+}
+
+float Phillips(float2 k, float g)
+{
+    float L = (windSpeed * windSpeed) / g; // Constant
+    float k_mag = length(k);
+    float k_dot_w = pow(abs(dot(normalize(k), normalize(w))), 4);
+    return A * exp(-1.0 / (k_mag * L) * (k_mag * L)) * k_dot_w;
+}
+
+//Set n_ = id.x and m_ = id_y
+[numthreads(8,8,1)]
+void PhilipsSpectrum(uint3 id : SV_DispatchThreadID)
+{   
+    float g = 9.81; //gravity constant
+    float n = id.x - N/2; //divide by size of the grid to fit in texture
+    float m = id.y - N/2;
+    float2 k = float2(n, m) * (2 * PI / L); //wave vector
+    float k_mag = length(k);
+       
+    if (k_mag <= threshHoldHigh && k_mag >= threshHoldLow)
+    {
+        //Compute Ph(k) Philips spectrum for a given wave k (see equation)            
+        float omega = Frequency(k_mag, g, waterDepth);
+        WavesData[id.xy] = float4(k.x, 1 / k_mag, k.y, omega);
+        float4 gaussDistrib = float4(gaussRandom(id.xy, NoiseScale/2, N).xy, gaussRandom(id.xy, NoiseScale, N).xy); //different scales otherwise terms will cancel out
+        // (1 / sqrt(2)) *  philips(k)  * gaussDistrib
+        float2 h0_k = (1 / sqrt(2)) * sqrt(Phillips(k, g)) * gaussDistrib.xy; 
+        float2 h0_minus_k = (1 / sqrt(2)) * sqrt(Phillips(-k, g)) * gaussDistrib.zw;
+        H0[id.xy] = float4(h0_k.x, h0_k.y, h0_minus_k.x, -h0_minus_k.y);
+        NoiseToBake[id.xy] = float4(gaussRandom(id.xy, 10, N).x, gaussRandom(id.xy, 10, N).y, 0, 0);
+
+    }
+    else
+    {
+        H0[id.xy] = 0; // set to 0 if too low or two high 
+        WavesData[id.xy] = float4(k.x, 1, k.y, 0); //if wave is too small, save its position, sets its magnitude to 1 and 
+    } 
+        
+}
+

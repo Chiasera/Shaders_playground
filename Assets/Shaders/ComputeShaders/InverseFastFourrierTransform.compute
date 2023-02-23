@@ -1,0 +1,30 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Compute_IFFT
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> Pingpong_01; // pingpong textures from FFT compute shader
+RWTexture2D<float4> Pingpong_02; 
+RWTexture2D<float4> H_XZ;
+
+float N; //grid size
+bool pingpong;
+
+[numthreads(8,8,1)]
+void Compute_IFFT(uint3 id : SV_DispatchThreadID)
+{
+    float permutations[] = { 1.0, -1.0 };
+    int index = (id.x + id.y) % 2;
+    float permIndex = permutations[index];
+    if (pingpong)
+    {
+        float computeData = Pingpong_01[id.xy].x;
+        float Dy = computeData;
+        H_XZ[id.xy] = float4(Dy*permIndex, Dy*permIndex, Dy*permIndex, 1);
+    }
+    else
+    {
+        float computeData = Pingpong_02[id.xy].x;
+        float Dy = computeData;
+        H_XZ[id.xy] = float4(Dy*permIndex, Dy*permIndex, Dy*permIndex, 1);
+    }
+}
