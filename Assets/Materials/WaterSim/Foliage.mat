@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6350332504727559678
+--- !u!114 &-3489881897588946851
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,35 +20,19 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
-  m_Shader: {fileID: -6465566751694194690, guid: 332d308f06481274c8f71d72ba53a1c7, type: 3}
+  m_Name: Foliage
+  m_Shader: {fileID: -6465566751694194690, guid: fa07391ab55efda44a29e0d797930f34, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_1d1dcd4aa0a64b64b072626707640b25:
-        m_Texture: {fileID: 2800000, guid: ca83b717b88bdcb46876c3ef14667b01, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_2a49c0e3057543ceac43dae21eb4f3a5:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_708e171ad4854219b80a19a2f43eee36:
-        m_Texture: {fileID: 2800000, guid: 7b1d79ca6277af9468096842c11fb48c, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_83995ec7c5d041148f744eee0538c0cb:
-        m_Texture: {fileID: 2800000, guid: 7b1d79ca6277af9468096842c11fb48c, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -73,6 +57,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _FoliageTexture:
+        m_Texture: {fileID: 2800000, guid: eb062514a87fa274dbfb3a36683dd459, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -86,10 +74,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _PlanarReflectionTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -111,29 +95,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_0917cc35a383429f964c24aeba0eb2b7: 3
-    - Vector1_099b5a7d01aa473caf8b2aaeb750554d: 1
-    - Vector1_0cb1f3005f634807a6ff49e9206f8564: 0.69
-    - Vector1_1: 0.8
-    - Vector1_16ec6c93ce1e4be786fef2a2e3c7a01a: 12.7
-    - Vector1_3215e4e950124d9f8588ed3994838879: 1
-    - Vector1_3b4956e10e914e1287b5ab8b3184ff79: 2
-    - Vector1_5a4c0bf6cfc14dad87c69ef4231ac107: 0.2
-    - Vector1_6ee5a12171a7494ea24bfa50a232e87f: 0.5
-    - Vector1_77cf335dd3194bddb6552b19bde500b5: 0.3
-    - Vector1_7907421882794170aa3b6fac7a2c92e8: 2
-    - Vector1_85370292cc074df1adc690be2e99c2ca: 5
-    - Vector1_ab3b634998fc4d6589fd28bc68b0fa39: 2
-    - Vector1_b4e35188d7b24ee790124810ddf99a02: 0.55
-    - Vector1_cda8dcc8ab2840658762e0a1b6c2416d: 0.1
-    - Vector1_cef5b23c003748bc92ff9148a838a49e: 0.547
-    - Vector1_d941599d5f964e3587536df627080dc6: 0
-    - Vector1_dff0bec96a5949fea3a49a5ac0e50e84: 0.2
-    - Vector1_e7975244fb4b4dba886bf93eaefcdd43: 1
-    - Vector1_ea4daa7a6c6141ee8fe0a5343a9fdab4: 0.85
-    - Vector1_eecedc42f4a54e2c8a5a5b0a695f9ce7: 5
-    - Vector1_f12efb1d7c614fc3be6fdaeb3686bc60: 0.2
-    - Vector1_f68267417505415888dfb6a06609174a: 0.05
+    - BOOLEAN_6A96DA7D53044CD087EBAF293FECFE3C: 0
+    - BOOLEAN_9EFAFD8F30434BF5AEB3D3E4E08FEB76: 0
+    - Vector1_2c3ef261fdea4fecaaf8c3b0866bb23f: 1
+    - Vector1_307112231aa94f2cbdb9c5ef55c2accd: 0
+    - Vector1_425b28274b5647ea909e43c5e0b0de4c: 1
+    - Vector1_4e0207aad98e44039728554f5fe1a121: 1
+    - Vector1_6d11a87d9b8c412ead003becaa7d5ff9: 0
+    - Vector1_7c09054c36994f008a333049b0906d32: 1
+    - Vector1_ad268a30d9664ca79fda2446278b1490: 1
+    - _Agitation_X_strength: 0.5
+    - _Agitation_Z_strength: 0.5
+    - _Agitation_noise_scale: 1
+    - _Agitation_speed: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -145,40 +119,28 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Foam_opacity: 0.5
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _QueueControl: 1
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Spread_smoothness: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _Transparency: 0.437
-    - _WaveAmplitude: 1.1
-    - _WaveLength: 50
-    - _WaveSpeed: 1
-    - _WaveSteepness: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_1: {r: 0.45882353, g: 0.72156864, b: 0.7490196, a: 0}
-    - Color_2d9ebf8a3d824d0f80d844449edaf54a: {r: 0.4892013, g: 0.9150943, b: 0.830173, a: 1}
-    - Color_8c750a59abbe422c8843e21265e9a246: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 0}
-    - Color_b1422d8955ce49a89b255dce20727883: {r: 0.030704841, g: 0.10493133, b: 0.4245283, a: 1}
-    - Color_b1422d8955ce49a89b255dce20727883_1: {r: 0.17755423, g: 0.5943396, b: 0.5860204, a: 1}
-    - Color_c911f805b0814177b01078446e23360b: {r: 1, g: 0, b: 0, a: 1}
-    - Vector2_013be9b40170406ebd8e861e202a550e: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_987022db4fc94df6a53019f39e6d3ce1: {r: 2, g: 2, b: 0, a: 0}
+    - Color_1: {r: 0.4716981, g: 0.1097662, b: 0.3243402, a: 0}
+    - Color_57c7306742fc4e6196a9eddb49f608e6: {r: 0.5660378, g: 0.249199, b: 0.35235587, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _WaveDirection: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
