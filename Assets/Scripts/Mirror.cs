@@ -131,6 +131,8 @@ namespace UnityEngine.Rendering.Universal
             _reflectionCamera.projectionMatrix = projection;
             _reflectionCamera.cullingMask = m_settings.m_ReflectLayers; // never render water layer
             _reflectionCamera.transform.position = newPosition;
+            _reflectionCamera.clearFlags = CameraClearFlags.SolidColor;
+            _reflectionCamera.backgroundColor = Color.black;
         }
 
         // Calculates reflection matrix around the given plane
