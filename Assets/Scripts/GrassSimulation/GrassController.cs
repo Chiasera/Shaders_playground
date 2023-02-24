@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GrassController : MonoBehaviour
@@ -33,7 +34,7 @@ public class GrassController : MonoBehaviour
         //Check for unbound ids at runtime and update the collision state
         for (int i = 1; i <= idData.Length; i++)
         {
-            if (!ContainsId(idData, i))
+            if (!idData.ToList().Contains(i))
             {
                 _renderer.sharedMaterial.SetVector("_Interactor_" + i + "Position", Vector3.zero);
                 _renderer.sharedMaterial.SetFloat("_InfluenceRadius_" + i, 0);
@@ -47,16 +48,5 @@ public class GrassController : MonoBehaviour
             _renderer.sharedMaterial.SetVector("_Interactor_" + id + "Position", position);
             _renderer.sharedMaterial.SetFloat("_InfluenceRadius_" + id, interactor.influenceRadius);                  
         }        
-    }
-
-    //Checks if idList contains the provided id
-    private bool ContainsId(int[] idList, int id)
-    {
-        var result = false;
-        for(int i = 0; i < idList.Length; i++)
-        {
-            if (idList[i] == id) return true;
-        }
-        return result;
     }
 }
