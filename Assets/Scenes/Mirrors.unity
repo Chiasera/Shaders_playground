@@ -235,8 +235,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192211629}
   m_LocalRotation: {x: -0.28942832, y: -0.32393008, z: 0.104798965, w: -0.8946048}
-  m_LocalPosition: {x: -194.48755, y: 133.24478, z: -98.99925}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.9, y: 80.1, z: -16.8}
+  m_LocalScale: {x: 0.62876, y: 0.62876, z: 0.62876}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -582,8 +582,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095828432}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 118.3908, y: -1.7890053, z: 45.446003}
+  m_LocalScale: {x: 0.62876, y: 0.62876, z: 0.62876}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -650,8 +650,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472680882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 118.3908, y: -3.675005, z: 45.446003}
+  m_LocalScale: {x: 0.62876, y: 0.62876, z: 0.62876}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -725,6 +725,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 4294967295
     m_Shadows: 0
+    reflectSkybox: 1
   m_planeOffset: 0
   _reflectionCamera: {fileID: 0}
   _reflectionTexture: {fileID: 0}
@@ -800,8 +801,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878234558}
   m_LocalRotation: {x: 0.033385035, y: -0, z: -0, w: 0.9994426}
-  m_LocalPosition: {x: -109.8, y: -9, z: -10.2}
-  m_LocalScale: {x: 10.601021, y: 25.302517, z: 10.601021}
+  m_LocalPosition: {x: 49.3478, y: -9.334005, z: 39.0329}
+  m_LocalScale: {x: 6.665498, y: 15.90921, z: 6.665498}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -899,8 +900,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017815016}
   m_LocalRotation: {x: -0.70709884, y: 0.0033557175, z: 0.0033557175, w: 0.70709884}
-  m_LocalPosition: {x: -112.4, y: 66.3, z: 38.8}
-  m_LocalScale: {x: 10.601021, y: 25.302517, z: 10.601021}
+  m_LocalPosition: {x: 47.713802, y: 38.011993, z: 69.842}
+  m_LocalScale: {x: 6.665498, y: 15.90921, z: 6.665498}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -925,6 +926,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 4294967295
     m_Shadows: 0
+    reflectSkybox: 1
   m_planeOffset: 0
   _reflectionCamera: {fileID: 0}
   _reflectionTexture: {fileID: 0}
@@ -1018,8 +1020,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2147005784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -112.2, y: 61, z: -9.7}
-  m_LocalScale: {x: 22.64, y: 22.64, z: 22.64}
+  m_LocalPosition: {x: 47.838802, y: 34.678993, z: 39.347202}
+  m_LocalScale: {x: 14.235126, y: 14.235126, z: 14.235126}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

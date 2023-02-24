@@ -24,6 +24,7 @@ namespace UnityEngine.Rendering.Universal
             public float m_ClipPlaneOffset = 0.07f;
             public LayerMask m_ReflectLayers = -1;
             public bool m_Shadows;
+            public bool reflectSkybox;
         }
 
         [SerializeField]
@@ -131,8 +132,11 @@ namespace UnityEngine.Rendering.Universal
             _reflectionCamera.projectionMatrix = projection;
             _reflectionCamera.cullingMask = m_settings.m_ReflectLayers; // never render water layer
             _reflectionCamera.transform.position = newPosition;
-            _reflectionCamera.clearFlags = CameraClearFlags.SolidColor;
-            _reflectionCamera.backgroundColor = Color.black;
+            if (!m_settings.reflectSkybox)
+            {
+                _reflectionCamera.clearFlags = CameraClearFlags.SolidColor;
+                _reflectionCamera.backgroundColor = Color.black;
+            }         
         }
 
         // Calculates reflection matrix around the given plane

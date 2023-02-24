@@ -24,10 +24,10 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 332d308f06481274c8f71d72ba53a1c7, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 3001
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -55,6 +55,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CausticsTexture:
+        m_Texture: {fileID: 2800000, guid: 074825013d28dab4b8353798e61f9343, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -116,7 +120,7 @@ Material:
     - Vector1_0cb1f3005f634807a6ff49e9206f8564: 0.69
     - Vector1_1: 0.8
     - Vector1_16ec6c93ce1e4be786fef2a2e3c7a01a: 12.7
-    - Vector1_3215e4e950124d9f8588ed3994838879: 1
+    - Vector1_3215e4e950124d9f8588ed3994838879: 0.7
     - Vector1_3b4956e10e914e1287b5ab8b3184ff79: 2
     - Vector1_5a4c0bf6cfc14dad87c69ef4231ac107: 0.2
     - Vector1_6ee5a12171a7494ea24bfa50a232e87f: 0.5
@@ -143,6 +147,9 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DistorsionIntensity: 0.707
+    - _DistorsionScale: 1.69
+    - _DistorsionSpeed: 0.91
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _Foam_opacity: 0.5
@@ -160,11 +167,13 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _Tiling_X: 0.1
+    - _Tiling_Y: 0.1
     - _Transparency: 0.437
-    - _WaveAmplitude: 1.1
-    - _WaveLength: 50
+    - _WaveAmplitude: 0.8
+    - _WaveLength: 480
     - _WaveSpeed: 1
-    - _WaveSteepness: 1
+    - _WaveSteepness: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -177,8 +186,10 @@ Material:
     - Vector2_013be9b40170406ebd8e861e202a550e: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_987022db4fc94df6a53019f39e6d3ce1: {r: 2, g: 2, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Caustics_tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Panning: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _WaveDirection: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
