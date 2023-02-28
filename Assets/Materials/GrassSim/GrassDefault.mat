@@ -81,15 +81,15 @@ Material:
     m_Floats:
     - BOOLEAN_6A96DA7D53044CD087EBAF293FECFE3C: 0
     - BOOLEAN_9EFAFD8F30434BF5AEB3D3E4E08FEB76: 1
-    - Vector1_2c3ef261fdea4fecaaf8c3b0866bb23f: 0.97
+    - Vector1_2c3ef261fdea4fecaaf8c3b0866bb23f: 1.22
     - Vector1_307112231aa94f2cbdb9c5ef55c2accd: 0
     - Vector1_425b28274b5647ea909e43c5e0b0de4c: -1
-    - Vector1_4e0207aad98e44039728554f5fe1a121: 5
+    - Vector1_4e0207aad98e44039728554f5fe1a121: 2.51
     - Vector1_6d11a87d9b8c412ead003becaa7d5ff9: -0.5
     - Vector1_7c09054c36994f008a333049b0906d32: 1
-    - Vector1_ad268a30d9664ca79fda2446278b1490: 1.8
-    - _Agitation_X_strength: 0.5
-    - _Agitation_Z_strength: 0.5
+    - Vector1_ad268a30d9664ca79fda2446278b1490: 2.76
+    - _Agitation_X_strength: 0.33
+    - _Agitation_Z_strength: 0.3
     - _Agitation_noise_scale: 1
     - _Agitation_speed: 1
     - _AlphaClip: 0
@@ -115,7 +115,7 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Spread_smoothness: 5
+    - _Spread_smoothness: 7.8
     - _SrcBlend: 1
     - _Surface: 0
     - _WorkflowMode: 1
