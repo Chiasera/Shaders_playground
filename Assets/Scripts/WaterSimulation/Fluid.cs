@@ -66,7 +66,8 @@ namespace Fusion.Fluid
             return new Vector3(vertexPosition.x, waveHeight, vertexPosition.y);
         }
 
-        public float GetWaterHeight(Vector2 position)
+        //Gerstner waves is a simple a quite cheap way to generate realistic unidirectional water waves
+        public float GetWaterHeight(Vector2 position) 
         {
             /* Needs better approximation for more waves */
             return new GerstnerWave(waveDirection, waveLength, waveAmplitude, waveSteepness, waveSpeed).GetWaveHeight(position)
