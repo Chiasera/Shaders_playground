@@ -10,7 +10,6 @@ namespace Fusion.Fluid {
         {
             var XZ_position = new Vector2(transform.position.x, transform.position.z);
             float difference = transform.position.y - fluid.GetWaterHeight(XZ_position);// the height of the water at the position of contact*/
-            //Debug.Log(fluid.GetWaterHeight(XZ_position));
 
             if (difference < 0)
             {

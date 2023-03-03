@@ -2,6 +2,8 @@
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Serialization;
 using Unity.Mathematics;
+using System.Collections;
+using UnityEditor;
 
 namespace UnityEngine.Rendering.Universal
 {
@@ -14,7 +16,7 @@ namespace UnityEngine.Rendering.Universal
             Full,
             Half,
             Third,
-            Quarter
+            Quarter 
         }
 
         [Serializable]
@@ -25,6 +27,7 @@ namespace UnityEngine.Rendering.Universal
             public LayerMask m_ReflectLayers = -1;
             public bool m_Shadows;
             public bool reflectSkybox;
+            public bool visualizeInEditor = false;
         }
 
         [SerializeField]
@@ -37,33 +40,47 @@ namespace UnityEngine.Rendering.Universal
         //private readonly int _planarReflectionTextureId;
         private new Renderer renderer;
 
-        private int2 _oldReflectionTextureSize;
-
         public event Action<ScriptableRenderContext, Camera> BeginPlanarReflections;
 
         private void OnEnable()
         {
-            renderer = GetComponent<Renderer>();
+            renderer = GetComponent<Renderer>();         
+            StartCoroutine(OnLoadWait());
+        }
+
+        private IEnumerator OnLoadWait()
+        {
+            FindTexture();
+            yield return new WaitForEndOfFrame();
             RenderPipelineManager.beginCameraRendering += ExecutePlanarReflections;
+            
+        }
+
+        private void FindTexture()
+        {
+            if (_reflectionTexture)
+            {
+                _reflectionTexture = null;
+                RenderTexture.ReleaseTemporary(_reflectionTexture);
+            };
         }
 
         // Cleanup all the objects we possibly have created
         private void OnDisable()
         {
-            renderer.sharedMaterial.SetTexture("_PlanarReflectionTexture", null);
             Cleanup();
-        }
+        } 
 
         private void OnDestroy()
         {
             Cleanup();
         }
-
+         
         private void Cleanup()
         {
             RenderPipelineManager.beginCameraRendering -= ExecutePlanarReflections;
-
-            if (_reflectionCamera)
+            m_settings.visualizeInEditor = false;
+            if (_reflectionCamera) 
             {
                 _reflectionCamera.targetTexture = null;
                 SafeDestroy(_reflectionCamera.gameObject);
@@ -71,10 +88,10 @@ namespace UnityEngine.Rendering.Universal
             if (_reflectionTexture)
             {
                 RenderTexture.ReleaseTemporary(_reflectionTexture);
-            }
+            } 
         }
 
-        private void SafeDestroy(Object obj)
+        private void SafeDestroy(Object obj) 
         {
             if (Application.isEditor)
             {
@@ -186,12 +203,6 @@ namespace UnityEngine.Rendering.Universal
             }
         }
 
-        // Compare two int2
-        private bool Int2Compare(int2 a, int2 b)
-        {
-            return a.x == b.x && a.y == b.y;
-        }
-
         // Given position/normal of the plane, calculates plane in camera space.
         private Vector4 CameraSpacePlane(Camera cam, Vector3 pos, Vector3 normal, float sideSign)
         {
@@ -229,7 +240,7 @@ namespace UnityEngine.Rendering.Universal
                 const RenderTextureFormat hdrFormat = useHdr10 ? RenderTextureFormat.RGB111110Float : RenderTextureFormat.DefaultHDR;
                 _reflectionTexture = RenderTexture.GetTemporary(res.x, res.y, 16,
                 GraphicsFormatUtility.GetGraphicsFormat(hdrFormat, true));
-            }
+            }         
             _reflectionCamera.targetTexture = _reflectionTexture;
         }
 
