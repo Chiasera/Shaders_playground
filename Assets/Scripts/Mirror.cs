@@ -50,19 +50,8 @@ namespace UnityEngine.Rendering.Universal
 
         private IEnumerator OnLoadWait()
         {
-            FindTexture();
             yield return new WaitForEndOfFrame();
-            RenderPipelineManager.beginCameraRendering += ExecutePlanarReflections;
-            
-        }
-
-        private void FindTexture()
-        {
-            if (_reflectionTexture)
-            {
-                _reflectionTexture = null;
-                RenderTexture.ReleaseTemporary(_reflectionTexture);
-            };
+            RenderPipelineManager.beginCameraRendering += ExecutePlanarReflections;           
         }
 
         // Cleanup all the objects we possibly have created
@@ -74,19 +63,21 @@ namespace UnityEngine.Rendering.Universal
         private void OnDestroy()
         {
             Cleanup();
-        }
+        } 
          
         private void Cleanup()
         {
+            Debug.Log("CLEANUP"); 
             RenderPipelineManager.beginCameraRendering -= ExecutePlanarReflections;
             m_settings.visualizeInEditor = false;
             if (_reflectionCamera) 
             {
                 _reflectionCamera.targetTexture = null;
-                SafeDestroy(_reflectionCamera.gameObject);
+                SafeDestroy(_reflectionCamera.gameObject); 
             }
             if (_reflectionTexture)
             {
+                _reflectionTexture = null;
                 RenderTexture.ReleaseTemporary(_reflectionTexture);
             } 
         }
@@ -99,7 +90,7 @@ namespace UnityEngine.Rendering.Universal
             }
             else
             {
-                Destroy(obj);
+                Destroy(obj); 
             }
         }
 
