@@ -669,6 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
@@ -699,7 +700,7 @@ GameObject:
   - component: {fileID: 1878234562}
   - component: {fileID: 1878234561}
   - component: {fileID: 1878234559}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mirror2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,9 +724,10 @@ MonoBehaviour:
     m_ClipPlaneOffset: 0.07
     m_ReflectLayers:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 55
     m_Shadows: 0
     reflectSkybox: 1
+    visualizeInEditor: 0
   m_planeOffset: 0
   _reflectionCamera: {fileID: 0}
   _reflectionTexture: {fileID: 0}
@@ -821,7 +823,7 @@ GameObject:
   - component: {fileID: 2017815018}
   - component: {fileID: 2017815017}
   - component: {fileID: 2017815022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mirror1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,9 +926,10 @@ MonoBehaviour:
     m_ClipPlaneOffset: 0.07
     m_ReflectLayers:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 55
     m_Shadows: 0
     reflectSkybox: 1
+    visualizeInEditor: 0
   m_planeOffset: 0
   _reflectionCamera: {fileID: 0}
   _reflectionTexture: {fileID: 0}
