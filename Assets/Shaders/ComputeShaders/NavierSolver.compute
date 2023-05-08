@@ -1,0 +1,424 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Update_Fluid_Input
+#pragma kernel Diffuse_Vx
+#pragma kernel Set_Boundary_Vx
+#pragma kernel Diffuse_Vy
+#pragma kernel Set_Boundary_Vy
+#pragma kernel Project_Forward
+#pragma kernel Set_Boundary_Div_Forward
+#pragma kernel Set_Boundary_P_Forward
+#pragma kernel Solve_Poisson_Forward
+#pragma kernel UpdateVelocities_Forward
+#pragma kernel Advect_Vx
+#pragma kernel Set_Boundary_Advect_Vx
+#pragma kernel Advect_Vy
+#pragma kernel Set_Boundary_Advect_Vy
+#pragma kernel Project_Backward
+#pragma kernel Set_Boundary_Div_Backward
+#pragma kernel Set_Boundary_P_Backward
+#pragma kernel Solve_Poisson_Backward
+#pragma kernel UpdateVelocities_Backward
+#pragma kernel Diffuse_Density
+#pragma kernel Set_Boundary_Diffuse_Density
+#pragma kernel Advect_Density
+#pragma kernel Set_Boundary_Advect_Density
+#pragma kernel Update_Fluid_Texture
+#define ITER 20
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+float N; //texture dimension width = height
+RWTexture2D<float4> FluidTexture;
+RWTexture2D<float4> InputTexture;
+RWTexture2D<float> u;
+RWTexture2D<float> v;
+RWTexture2D<float> u_prev;
+RWTexture2D<float> v_prev;
+RWTexture2D<float> density;
+RWTexture2D<float> density_prev;
+float time;
+float dt;
+float visc;
+float diff;
+
+void AddDensity(uint2 id, float amount)
+{
+    density[id] += amount;
+}
+
+void AddVelocity(uint2 id, float amountX, float amountY)
+{
+    u_prev[id] += amountX * dt;
+    v_prev[id] += amountY * dt;
+}
+
+void AddVelocity(uint2 id, RWTexture2D<float4> sourceBuffer)
+{
+    u_prev[id] += sourceBuffer[id].x;
+    v_prev[id] += sourceBuffer[id].z;
+}
+
+void set_bnd(int n, int b, RWTexture2D<float> x, uint2 id)
+{  
+    //vertical walls collision   
+    if (b == 1)
+    {
+        x[uint2(0, id.y)] = (-1) * x[uint2(1, id.y)];
+        x[uint2(N + 1, id.y)] = (-1) * x[uint2(N, id.y)];
+    }
+    else if (b != 1)
+    {
+        x[uint2(0, id.y)] = x[uint2(1, id.y)];
+        x[uint2(N + 1, id.y)] = x[uint2(N, id.y)];
+    }
+        
+    //horizontal walls collision
+    if (b == 2)
+    {
+        x[uint2(id.x, 0)] = (-1) * x[uint2(id.x, 1)];
+        x[uint2(id.x, N + 1)] = (-1) * x[uint2(id.x, N)];
+        
+    }
+    else if (b != 2)
+    {
+        x[uint2(id.x, 0)] = x[uint2(id.x, 1)];
+        x[uint2(id.x, N + 1)] = x[uint2(id.x, N)];
+    }
+    //wait for threads to be on the correct corners before updating them
+    if (id.x == 0 && id.y == 0)
+    {
+        x[uint2(0, 0)] = 0.5 * (x[uint2(1, 0)] + x[uint2(0, 1)]);
+    }
+    if (id.x == 0 && id.y == uint(N + 1))
+    {
+        x[uint2(0, N + 1)] = 0.5 * (x[uint2(1, N + 1)] + x[uint2(0, N)]);
+    }
+    if (id.x == uint(N + 1) && id.y == 0)
+    {
+        x[uint2(N + 1, 0)] = 0.5 * (x[uint2(N, 0)] + x[uint2(N + 1, 1)]);
+    }
+    if (id.x == uint(N + 1) && id.y == uint(N + 1))
+    {
+        x[uint2(N + 1, N + 1)] = 0.5 * (x[uint2(N, N + 1)] + x[uint2(N + 1, N)]);
+    }
+}
+
+
+void Solve_Poisson(RWTexture2D<float> x, RWTexture2D<float> x0, uint2 id)
+{
+    int k;
+    float a = dt * diff * (N) * (N); //compute diffusion rate    
+    float c = (1 + 4 * a);
+    for (k = 0; k < ITER; k++)
+    {
+        x[id] = (x0[id] + a * (x[id - uint2(1, 0)] + x[id + uint2(1, 0)] +
+        x[id - uint2(0, 1)] + x[id + uint2(0, 1)])) / c;
+    }
+}
+
+void diffuse(int b, RWTexture2D<float> x, RWTexture2D<float> x0, float diff, float dt, uint2 id)
+{
+    int i, j, k; 
+    //solve equations
+    float a = dt * diff * (N) * (N); //compute diffusion rate
+    for (k = 0; k < ITER; k++)
+    {
+        x[id] = (x0[id] +
+        a * (x[id - uint2(1, 0)] + x[id + uint2(1, 0)] +
+        x[id - uint2(0, 1)] + x[id + uint2(0, 1)])) / (1 + 4 * a);     
+    }
+    set_bnd(N, b ,x, id);  
+}
+ 
+//d = current density
+//d0 = previous density
+//u = velocityX
+//v = velocityY
+//dt = timeStep
+//id = thread position
+void advect(int b, RWTexture2D<float> d, RWTexture2D<float> d0, RWTexture2D<float> u, RWTexture2D<float> v, float dt, uint2 id)
+{
+    int i0, j0, i1, j1;
+    float x, y, s0, t0, s1, t1, dt0;
+    
+    dt0 = dt * (N);
+    x = id.x - dt0 * u[id];
+    y = id.y - dt0 * v[id];
+            
+    if (x < 0.5)
+        x = 0.5;
+            
+    if (x > N + 0.5)
+        x = N + 0.5;
+            
+    i0 = floor(x);
+    i1 = i0 + 1;
+            
+    if (y < 0.5)
+        y = 0.5;
+    if (y > N + 0.5)
+        y = N + 0.5;
+            
+    j0 = floor(y);
+    j1 = j0 + 1;
+            
+    s1 = x - i0;
+    s0 = 1 - s1;
+    t1 = y - j0;
+    t0 = 1 - t1;
+            
+    d[id] =
+        s0 * (t0 * d0[uint2(i0, j0)]
+        + t1 * d0[uint2(i0, j1)])
+        + s1 * (t0 * d0[uint2(i1, j0)]
+        + t1 * d0[uint2(i1, j1)]);
+    //set_bnd(N, b, d, id);    
+}
+
+void project(RWTexture2D<float> u, RWTexture2D<float> v, RWTexture2D<float> p, RWTexture2D<float> div, uint2 id)
+{
+    int i, j, k;
+    float h;
+    h = 1.0 / N;
+    div[id] = -0.5 * h * (u[id + uint2(1, 0)] - u[id - uint2(1, 0)] +
+    v[id + uint2(0, 1)] - v[id - uint2(0, 1)]);
+    p[id] = 0;
+    set_bnd(N, 0, div, id);
+    set_bnd(N, 0, p, id);
+    //solve equations
+    for (k = 0; k < ITER; k++)
+    {
+        p[id] = (div[id] + p[id - uint2(1, 0)] + p[id + uint2(1, 0)] +
+        p[id - uint2(0, 1)] + p[id + uint2(0, 1)]) / 4;       
+    }
+    u[id] -= 0.5 * (p[id + uint2(1, 0)] - p[id - uint2(1, 0)]) * N;
+    v[id] -= 0.5 * (p[id + uint2(0, 1)] - p[id - uint2(0, 1)]) * N;
+    set_bnd(N, 1, u, id);
+    set_bnd(N, 2, v, id);
+}
+
+void Update_Velocities_Project(RWTexture2D<float> u, RWTexture2D<float> v, RWTexture2D<float> p, uint2 id)
+{
+    float h;
+    h = 1.0 / N;
+    u[id] -= 0.5 * (p[id + uint2(1, 0)] - p[id - uint2(1, 0)]) / h;
+    v[id] -= 0.5 * (p[id + uint2(0, 1)] - p[id - uint2(0, 1)]) / h;
+}
+
+void dens_step(RWTexture2D<float> x, RWTexture2D<float> x0, RWTexture2D<float> u, RWTexture2D<float> v, float diff, float dt, uint2 id)
+{
+
+    //diffuse density
+    diffuse(0, x0, x, diff, dt, id);   
+    //advect density
+    advect(0, x, x0, u, v, dt, id);
+} 
+
+void vel_step(RWTexture2D<float> u, RWTexture2D<float> v, RWTexture2D<float> u0, RWTexture2D<float> v0, float visc, float dt, uint2 id)
+{
+    //diffuse velocity x
+    diffuse(1, u0, u, visc, dt, id);
+    //diffuse velocity y
+    diffuse(2, v0, v, visc, dt, id);
+    project(u0, v0, u, v, id);
+    advect( 1, u, u0, u0, v0, dt, id);
+    //advect(2, v, v0, u0, v0, dt, id);
+    //project( u, v, u0, v0, id); 
+}
+
+void get_velocity(RWTexture2D<float> d, uint2 id)
+{
+    AddVelocity(id, InputTexture);
+    float2 velocity = float2(u[id], v[id]);
+    d[id] += InputTexture[id].y * length(velocity);
+}
+
+void fadeDye(uint2 id)
+{
+    float d = density[id];
+    density[id] = clamp(d - 0.5, 0, 255);
+}
+
+
+[numthreads(8, 8, 1)]
+void Update_Fluid_Input(uint3 id : SV_DispatchThreadID)
+{
+    
+    get_velocity(density_prev, id.xy);
+    fadeDye(id.xy);
+}
+
+
+[numthreads(8, 8, 1)]
+void Update_Fluid_Texture(uint3 id : SV_DispatchThreadID)
+{
+    vel_step(u, v, u_prev, v_prev, visc, dt, id.xy);
+    FluidTexture[id.xy] = float4(u_prev[id.xy] + v_prev[id.xy], 0, 0, 1.0);
+}
+
+
+//=================VELOCITY_STEP======================
+
+//================DIFFUSE_VELOCITIES==============
+[numthreads(8, 8, 1)]
+void Diffuse_Vx(uint3 id : SV_DispatchThreadID)
+{
+    diffuse(1, u_prev, u, visc, dt, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_Vx(uint3 id : SV_DispatchThreadID)
+{
+    set_bnd(N, 1, u_prev, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Diffuse_Vy(uint3 id : SV_DispatchThreadID)
+{
+    diffuse(2, v_prev, v, visc, dt, id.xy);    
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_Vy(uint3 id : SV_DispatchThreadID)
+{
+    set_bnd(N, 2, v_prev, id.xy);
+    FluidTexture[id.xy] = float4(u_prev[id.xy], 0, 0, 1.0);      
+}
+//===============PROJECT_DIFFUSED_VELOCITIES===============
+
+[numthreads(8, 8, 1)]
+void Project_Forward(uint3 id : SV_DispatchThreadID)
+{
+   project(u_prev, v_prev, u, v, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_Div_Forward(uint3 id : SV_DispatchThreadID)
+{
+   //set_bnd(N, 0, v, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_P_Forward(uint3 id : SV_DispatchThreadID)
+{
+   //set_bnd(N, 0, u, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Solve_Poisson_Forward(uint3 id : SV_DispatchThreadID)
+{
+   //Solve_Poisson(u, v, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void UpdateVelocities_Forward(uint3 id : SV_DispatchThreadID)
+{
+   Update_Velocities_Project(u_prev, v_prev, u, id.xy);
+   //FluidTexture[id.xy] = float4(u[id.xy], 0, 0, 1.0);  
+}
+
+//Set boundary Vx
+//Set boundary Vy
+
+
+//================ADVECT_VELOCITIES=====================
+[numthreads(8, 8, 1)]
+void Advect_Vx(uint3 id : SV_DispatchThreadID)
+{
+    advect(1, u, u_prev, u_prev, v_prev, dt, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_Advect_Vx(uint3 id : SV_DispatchThreadID)
+{
+    set_bnd(N, 1, u, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Advect_Vy(uint3 id : SV_DispatchThreadID)
+{
+    advect(2, v, v_prev, u_prev, v_prev, dt, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_Advect_Vy(uint3 id : SV_DispatchThreadID)
+{
+    set_bnd(N, 2, v, id.xy);
+    
+}
+
+
+//=================PROJECT_ADVECTED_VELOCITIES==================
+
+[numthreads(8, 8, 1)]
+void Project_Backward(uint3 id : SV_DispatchThreadID)
+{
+    project(u, v, u_prev, v_prev, id.xy);
+    
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_Div_Backward(uint3 id : SV_DispatchThreadID)
+{
+    set_bnd(N, 0, v_prev, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_P_Backward(uint3 id : SV_DispatchThreadID)
+{
+   set_bnd(N, 0, u_prev, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Solve_Poisson_Backward(uint3 id : SV_DispatchThreadID)
+{
+   Solve_Poisson(u_prev, v_prev, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void UpdateVelocities_Backward(uint3 id : SV_DispatchThreadID)
+{
+    Update_Velocities_Project(u, v, u_prev, id.xy);
+}
+
+
+//Set_Boundary_Advect_Vx
+//Set_Boundary_Advect_Vy
+
+//==================DENSITY_STEP======================
+
+[numthreads(8, 8, 1)]
+void Diffuse_Density(uint3 id : SV_DispatchThreadID)
+{
+    diffuse(0, density_prev, density, diff, dt, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_Diffuse_Density(uint3 id : SV_DispatchThreadID)
+{
+    set_bnd(N, 0, density_prev, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Advect_Density(uint3 id : SV_DispatchThreadID)
+{
+    advect(0, density, density_prev, u, v, dt, id.xy);
+}
+
+[numthreads(8, 8, 1)]
+void Set_Boundary_Advect_Density(uint3 id : SV_DispatchThreadID)
+{
+    set_bnd(N, 0, density, id.xy);
+} 
+
+//========THIS_CONCLUDES_THE_SIMULATION_LOOP============
+
+
+
+
+
+
+
+
+
+
