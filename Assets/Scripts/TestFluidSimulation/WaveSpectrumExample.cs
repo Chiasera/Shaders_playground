@@ -43,16 +43,16 @@ public class WaveSpectrumExample : MonoBehaviour
     void Start()
     {
         //Create all renderTextures
-        H0 = AssetSource.CreateRenderTexture(Size, Size, 2, FilterMode.Point, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
-        Buffer_ = AssetSource.CreateRenderTexture(Size, Size, 2, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
-        Dx_Dz = AssetSource.CreateRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
-        Dy_Dxz = AssetSource.CreateRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
-        Dyx_Dyz = AssetSource.CreateRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
-        Dxx_Dzz = AssetSource.CreateRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
-        WavesData = AssetSource.CreateRenderTexture(Size, Size, 2, FilterMode.Point, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
-        butterflyTexture = AssetSource.CreateRenderTexture(Size/32, Size, 0, FilterMode.Point, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
-        displacement = AssetSource.CreateRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
-        noiseToBake = AssetSource.CreateRenderTexture(Size, Size, 10, FilterMode.Point, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
+        H0 = AssetSource.Create2DRenderTexture(Size, Size, 2, FilterMode.Point, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
+        Buffer_ = AssetSource.Create2DRenderTexture(Size, Size, 2, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
+        Dx_Dz = AssetSource.Create2DRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
+        Dy_Dxz = AssetSource.Create2DRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
+        Dyx_Dyz = AssetSource.Create2DRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
+        Dxx_Dzz = AssetSource.Create2DRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.RGFloat);
+        WavesData = AssetSource.Create2DRenderTexture(Size, Size, 2, FilterMode.Point, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
+        butterflyTexture = AssetSource.Create2DRenderTexture(Size/32, Size, 0, FilterMode.Point, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
+        displacement = AssetSource.Create2DRenderTexture(Size, Size, 6, FilterMode.Trilinear, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
+        noiseToBake = AssetSource.Create2DRenderTexture(Size, Size, 10, FilterMode.Point, TextureWrapMode.Repeat, true, RenderTextureFormat.ARGBFloat);
 
         int timeSpectrumKernel = timeDependentSpectrum.FindKernel("TimeDependentSpectrum");
         int philipsKernel = philipsSpectrum.FindKernel("PhilipsSpectrum");

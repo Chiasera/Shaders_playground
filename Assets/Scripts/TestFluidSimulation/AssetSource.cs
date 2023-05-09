@@ -62,11 +62,12 @@ public class AssetSource : MonoBehaviour
         return tex;
     }
 
-    public static RenderTexture CreateRenderTexture(int size_w, int size_h, int anisoLevel,
+    public static RenderTexture Create2DRenderTexture(int size_w, int size_h, int anisoLevel,
         FilterMode filterMode, TextureWrapMode wrapMode, bool enableRandomWrite, RenderTextureFormat format) //default format
     {
         RenderTexture rt = new RenderTexture(size_w, size_h, 0,
             format, RenderTextureReadWrite.Linear);
+        rt.dimension = UnityEngine.Rendering.TextureDimension.Tex2D;
         rt.anisoLevel = anisoLevel; // Too high will cost a lot, might even put it to 0 if adding geometry or deformation at runtim
         rt.filterMode = filterMode; // Tri/Bilinear lerps between pixels, in our case point is more suitable
         rt.wrapMode = wrapMode; //Tiles the textures
