@@ -7,9 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Terrain Material
-  m_Shader: {fileID: 4800000, guid: 69c1f799e772cb6438f56c23efccb782, type: 3}
-  m_ValidKeywords: []
+  m_Name: GrassExpensive
+  m_Shader: {fileID: -6465566751694194690, guid: 854fe0c5e8cb22f459a3cec037716f45, type: 3}
+  m_ValidKeywords:
+  - BOOLEAN_9EFAFD8F30434BF5AEB3D3E4E08FEB76_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,15 +21,11 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BumpMap:
+    - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _CausticsTexture:
-        m_Texture: {fileID: 2800000, guid: 074825013d28dab4b8353798e61f9343, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Control:
+    - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -52,39 +49,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Mask0:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Mask1:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Mask2:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Mask3:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal0:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal1:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal2:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normal3:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -96,31 +61,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_6bb45dad1b6f41e6b65d0967f42e6ecf_Texture_1:
-        m_Texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Splat0:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Splat1:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Splat2:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Splat3:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _TerrainHolesTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -138,54 +79,60 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - BOOLEAN_6A96DA7D53044CD087EBAF293FECFE3C: 0
+    - BOOLEAN_9EFAFD8F30434BF5AEB3D3E4E08FEB76: 1
+    - Vector1_2c3ef261fdea4fecaaf8c3b0866bb23f: 1.26
+    - Vector1_307112231aa94f2cbdb9c5ef55c2accd: 0
+    - Vector1_425b28274b5647ea909e43c5e0b0de4c: 0.5
+    - Vector1_4e0207aad98e44039728554f5fe1a121: 4.38
+    - Vector1_6d11a87d9b8c412ead003becaa7d5ff9: 0.89
+    - Vector1_7c09054c36994f008a333049b0906d32: 2
+    - Vector1_ad268a30d9664ca79fda2446278b1490: 1.3
+    - _Agitation_X_strength: 0.67
+    - _Agitation_Z_strength: 0.54
+    - _Agitation_noise_scale: 1.34
+    - _Agitation_speed: 2
+    - _AlphaClip: 0
+    - _Blend: 0
     - _BumpScale: 1
-    - _CausticsBlend: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
     - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DistorsionFactor: 2
-    - _DistorsionSpeed: 0.01
-    - _DistorsionStrength: 0
     - _DstBlend: 0
-    - _EnableHeightBlend: 0
-    - _EnableInstancedPerPixelNormal: 1
     - _EnvironmentReflections: 1
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _HeightTransition: 0
+    - _Force: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _InfluenceDistance: 0.5
     - _Metallic: 0
-    - _Metallic0: 0
-    - _Metallic1: 0
-    - _Metallic2: 0
-    - _Metallic3: 0
-    - _Mode: 0
-    - _NoiseScale: 5
-    - _NumLayersCount: 1
     - _OcclusionStrength: 1
-    - _Parallax: 0.02
+    - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Rotation: 10
-    - _Smoothness0: 1
-    - _Smoothness1: 1
-    - _Smoothness2: 1
-    - _Smoothness3: 1
+    - _ReceiveShadows: 1
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Spread_smoothness: 2.8
     - _SrcBlend: 1
-    - _TERRAIN_INSTANCED_PERPIXEL_NORMAL: 0
-    - _Tiling: 0.01
-    - _UVSec: 0
-    - _WaveHeight: 0
+    - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_1: {r: 0.19245681, g: 0.3490566, b: 0.11415685, a: 0}
+    - Color_57c7306742fc4e6196a9eddb49f608e6: {r: 0.012787145, g: 0.1792453, b: 0.007891285, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _WaterPosition: {r: 0, g: 0, b: 0, a: 0}
+    - _PlayerPosition: {r: 11.978495, g: 24.082512, b: -9.134075, a: 0}
+    - _PlayerVelocity: {r: 0.000037864454, g: 0, b: 0, a: 0}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &298019469251740576
+--- !u!114 &2585864180082946152
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
