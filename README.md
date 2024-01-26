@@ -10,7 +10,10 @@ Please see an updated version for better visuals of the grass shader here: https
 ### Noise Displacement and collision detection
 - The grass shader includes a basic collision detection mechanism that bends grass in a circle arround the agent.
 - Three noises are used for the grass physics: one for the y movement, one for the x movement, and one for the "agitation" representing irregularities in the local wind
+- ![image](https://github.com/Chiasera/Shaders_playground/assets/70693638/27587b09-6366-4230-af9e-1a3348913643)
 - The grass models have been made using blender, and are vertex colored. We then sample the red channel of the vertex color to determine the amplitude of the grass blade at different height: the root should not move, and the tip of the grass should be strongly affected by the wind. This also allows us to realistically bend the grass blade and stay consistent: when a vertex needs to go go further along a given axis, we also decrease its height. Then, we sample the vertex color once more to get a curvature instead of a linear movement (You can look into the shader to dissect it, I also put sticky notes in the shadergraph)
+- ![image](https://github.com/Chiasera/Shaders_playground/assets/70693638/40b2e84e-6d2c-4699-bdab-424e17724ccf)
+
 
 ## Water Shader
 ![image](https://github.com/Chiasera/Shaders_playground/assets/70693638/078ea4c8-386c-491b-bfc3-b1770262c267)
