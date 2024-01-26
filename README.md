@@ -4,10 +4,9 @@
 This repository is a showcase of my custom shader work in Unity, featuring two primary shaders: a Ghibli-style Grass Shader and an advanced Water Shader. The Water Shader is particularly complex, incorporating planar reflection, caustics, Gerstner waves, depth-based foam, and a versatile floating system.
 
 ## Grass Shader
-Please see an updated version for better visuals of the grass shader here: https://github.com/Chiasera/Stylized-grass
-
 ![image](https://github.com/Chiasera/Shaders_playground/assets/70693638/79c2dc97-72cc-4105-b914-d404f1574165)
 
+Please see an updated version for better visuals of the grass shader here: https://github.com/Chiasera/Stylized-grass
 ### Noise Displacement and collision detection
 - The grass shader includes a basic collision detection mechanism that bends grass in a circle arround the agent.
 - Three noises are used for the grass physics: one for the y movement, one for the x movement, and one for the "agitation" representing irregularities in the local wind
