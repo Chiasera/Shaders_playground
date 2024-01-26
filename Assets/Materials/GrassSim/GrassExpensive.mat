@@ -128,8 +128,8 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PlayerPosition: {r: 11.978495, g: 24.082512, b: -9.134075, a: 0}
-    - _PlayerVelocity: {r: 0.000037864454, g: 0, b: 0, a: 0}
+    - _PlayerPosition: {r: 3.5899634, g: 24.082512, b: -22.840422, a: 0}
+    - _PlayerVelocity: {r: -0.0000047377866, g: 0, b: -0.00005679301, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2585864180082946152

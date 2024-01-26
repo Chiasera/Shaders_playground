@@ -7,15 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GrassDefault
-  m_Shader: {fileID: -6465566751694194690, guid: 854fe0c5e8cb22f459a3cec037716f45, type: 3}
-  m_ValidKeywords:
+  m_Name: GrassLOD0
+  m_Shader: {fileID: -6465566751694194690, guid: 5ded3964b5490ff488351b37e8821b0e, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - BOOLEAN_9EFAFD8F30434BF5AEB3D3E4E08FEB76_ON
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -46,7 +46,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GrassTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7b1d79ca6277af9468096842c11fb48c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GrassTexture2:
+        m_Texture: {fileID: 2800000, guid: 3de4b7c6ee8c99e489b42e21f7adcf20, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Grass_texture:
+        m_Texture: {fileID: 2800000, guid: 08909cefd1b59ef47850f775cf2cbbc8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Grass_texture1:
+        m_Texture: {fileID: 2800000, guid: 3de4b7c6ee8c99e489b42e21f7adcf20, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -69,6 +81,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_c0bd1281a481499681839607b85e1769_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 08909cefd1b59ef47850f775cf2cbbc8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -85,17 +101,17 @@ Material:
     m_Floats:
     - BOOLEAN_6A96DA7D53044CD087EBAF293FECFE3C: 0
     - BOOLEAN_9EFAFD8F30434BF5AEB3D3E4E08FEB76: 1
-    - Vector1_2c3ef261fdea4fecaaf8c3b0866bb23f: 1.6
+    - Vector1_2c3ef261fdea4fecaaf8c3b0866bb23f: 2
     - Vector1_307112231aa94f2cbdb9c5ef55c2accd: 0
-    - Vector1_425b28274b5647ea909e43c5e0b0de4c: 0.18
+    - Vector1_425b28274b5647ea909e43c5e0b0de4c: -1
     - Vector1_4e0207aad98e44039728554f5fe1a121: 5
-    - Vector1_6d11a87d9b8c412ead003becaa7d5ff9: 0.89
-    - Vector1_7c09054c36994f008a333049b0906d32: 6.3
-    - Vector1_ad268a30d9664ca79fda2446278b1490: 1.28
-    - _Agitation_X_strength: 0.67
-    - _Agitation_Z_strength: 0.54
-    - _Agitation_noise_scale: 1.34
-    - _Agitation_speed: 3.65
+    - Vector1_6d11a87d9b8c412ead003becaa7d5ff9: 1
+    - Vector1_7c09054c36994f008a333049b0906d32: 10
+    - Vector1_ad268a30d9664ca79fda2446278b1490: 0.46
+    - _Agitation_X_strength: 1
+    - _Agitation_Z_strength: 0.3
+    - _Agitation_noise_scale: 0.8
+    - _Agitation_speed: 2.15
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -107,40 +123,45 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Fade_width: 0
+    - _Fade: 1
+    - _Fade_width: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GrassShine: 0
-    - _GrassTexScale: 0
-    - _LOD_bias: 0
+    - _GrassShine: 0.565
+    - _GrassTexScale: 0.012
+    - _LOD_bias: 2.8
     - _Metallic: 0
-    - _Next_transition: 0
+    - _Next_transition: 0.5
     - _NoiseScale: 0.5
     - _OcclusionStrength: 1
-    - _OffsetScale: 1
+    - _OffsetScale: 2
     - _Parallax: 0.005
-    - _Previous_transition: 0
-    - _QueueControl: 0
+    - _Previous_transition: 81.9
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ShineHeight: 1
+    - _Scale: 0
+    - _ScaleTexture1: 0.03
+    - _ScaleTexture2: 5.03
+    - _ShineHeight: 0.83
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Spread_smoothness: 2.8
     - _SrcBlend: 1
     - _Surface: 0
-    - _Vertical_FOV: 0
+    - _UVScale: 0.05
+    - _Vertical_FOV: 123.7
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_1: {r: 0.07232696, g: 1, b: 0.8208493, a: 0}
-    - Color_57c7306742fc4e6196a9eddb49f608e6: {r: 1, g: 0, b: 0.2281251, a: 0}
+    - Color_1: {r: 0.00045196823, g: 0.006289184, b: 0, a: 0}
+    - Color_57c7306742fc4e6196a9eddb49f608e6: {r: 0.22553182, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _NoiseOffset: {r: 1, g: 0.5, b: 0, a: 0}
+    - _NoiseOffset: {r: 0.5, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2585864180082946152
@@ -155,4 +176,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7
