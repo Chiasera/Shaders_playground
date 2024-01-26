@@ -5,6 +5,7 @@ This repository is a showcase of my custom shader work in Unity, featuring two p
 
 ## Grass Shader
 Please see an updated version for better visuals of the grass shader here: https://github.com/Chiasera/Stylized-grass
+
 ![image](https://github.com/Chiasera/Shaders_playground/assets/70693638/79c2dc97-72cc-4105-b914-d404f1574165)
 
 ### Noise Displacement and collision detection
