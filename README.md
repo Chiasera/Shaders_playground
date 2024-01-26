@@ -41,12 +41,7 @@ The floating system in the shader accommodates two types of floaters:
 Refraction is achieved by distorting normal textures and applying the result in the vertex shader. This technique simulates the bending of light as it passes through the water.
 
 ## Usage
-Instructions on how to implement and use these shaders in your Unity projects are provided in the respective directories:
-- `GrassShader/`: Contains the grass shader assets and implementation details.
-- `WaterShader/`: Contains the water shader assets, technical documentation, and setup instructions.
-
-## Contributing
-Contributions to enhance the shaders or add new ones are welcome. Please feel free to fork the repository, make your changes, and submit a pull request.
+Clone the repository and use it at your will
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
